@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Юрист Марина Поворотная | Юридические и бизнес-консультации в РБ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+        }
+        .status-message {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            z-index: 1000;
+        }
+
+        /* --- НОВЫЕ СТИЛИ ДЛЯ СЛАЙДЕРА И МОДАЛКИ --- */
+        #infoModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+        .modal-body {
+            background: white;
+            width: 100%;
+            max-width: 700px;
+            max-height: 85vh;
+            overflow-y: auto;
+            border-radius: 1.5rem;
+            position: relative;
+        }
+        .slider-container {
+            overflow: hidden;
+            position: relative;
+            touch-action: pan-y; /* Позволяет прокручивать страницу вертикально, но перехватывает горизонтальные жесты */
+        }
+        .slider-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slider-item {
+            flex: 0 0 100%; /* По умолчанию 1 на экран */
+            padding: 0 1rem;
+        }
+        @media (min-width: 768px) {
+            .slider-item { flex: 0 0 50%; } /* 2 на экран */
+        }
+        @media (min-width: 1024px) {
+            .slider-item { flex: 0 0 33.333%; } /* 3 на экран */
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <nav class="fixed w-full z-50 glass-effect border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex-shrink-0">
+                    <span class="text-2xl font-bold text-slate-900">Марина Поворотная</span>
+                    <p class="text-xs text-slate-500 uppercase tracking-widest">Юридические услуги</p>
+                </div>
+                <div class="hidden md:flex space-x-8 text-sm font-medium">
+                    <a href="#about" class="hover:text-blue-600 transition">Обо мне</a>
+                    <a href="#services" class="hover:text-blue-600 transition">Услуги</a>
+                    <a href="#useful" class="hover:text-blue-600 transition">Полезно знать</a>
+                    <a href="#contact" class="hover:text-blue-600 transition">Контакты</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#booking" class="bg-slate-900 text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-slate-700 transition">Записаться</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="pt-32 pb-20 hero-gradient overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <div class="inline-block px-4 py-1.5 bg-blue-50 border border-blue-100 rounded-full text-blue-700 text-sm font-semibold">
+                        20+ лет опыта в юриспруденции
+                    </div>
+                    <h1 class="text-5xl md:text-6xl font-bold leading-tight text-slate-900">
+                        Ваш надежный партнер <br>в мире <span class="text-blue-600">бизнес-права</span>
+                    </h1>
+                    <p class="text-lg text-slate-600 max-w-lg">
+                        Профессиональные консультации, открытие бизнеса в Беларуси, налоговая оптимизация и судебная защита. Более 500 успешных кейсов.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#booking" class="bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-blue-700 transition flex items-center shadow-lg shadow-blue-200">
+                            Онлайн-запись
+                            <i class="fas fa-calendar-alt ml-2"></i>
+                        </a>
+                        <a href="#ask" class="bg-white text-slate-900 border border-slate-200 px-8 py-4 rounded-xl font-semibold hover:bg-slate-50 transition">
+                            Задать вопрос
+                        </a>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="aspect-square rounded-3xl overflow-hidden shadow-2xl bg-slate-200">
+                        <img src="photo.JPG" 
+                             alt="Марина Поворотная" 
+                             class="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition duration-700"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/800';">
+                    </div>
+                    <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl hidden lg:block">
+                        <div class="flex items-center space-x-4">
+                            <div class="bg-green-100 text-green-600 p-3 rounded-full">
+                                <i class="fas fa-check-double text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-2xl font-bold text-slate-900">500+</p>
+                                <p class="text-sm text-slate-500 font-medium">Успешных кейсов</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="order-2 md:order-1">
+                    <h2 class="text-4xl font-bold mb-8">Почему выбирают мои услуги?</h2>
+                    <div class="space-y-8">
+                        <div class="flex space-x-4">
+                            <div class="text-blue-600 mt-1"><i class="fas fa-graduation-cap text-2xl"></i></div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-2">Профильное образование</h3>
+                                <p class="text-slate-600">Глубокие знания законодательства Республики Беларусь и постоянное повышение квалификации.</p>
+                            </div>
+                        </div>
+                        <div class="flex space-x-4">
+                            <div class="text-blue-600 mt-1"><i class="fas fa-history text-2xl"></i></div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-2">Многолетний стаж</h3>
+                                <p class="text-slate-600">Более 20 лет практической работы в различных секторах бизнеса: от ритейла до фитнес-индустрии.</p>
+                            </div>
+                        </div>
+                        <div class="flex space-x-4">
+                            <div class="text-blue-600 mt-1"><i class="fas fa-bullseye text-2xl"></i></div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-2">Индивидуальный подход</h3>
+                                <p class="text-slate-600">Каждое дело — это уникальная стратегия, направленная на минимизацию рисков и защиту интересов клиента.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 md:order-2 grid grid-cols-2 gap-4">
+                    <div class="bg-slate-50 p-8 rounded-3xl text-center">
+                        <p class="text-4xl font-bold text-blue-600 mb-2">20</p>
+                        <p class="text-sm font-medium text-slate-500 uppercase">Лет стажа</p>
+                    </div>
+                    <div class="bg-blue-600 p-8 rounded-3xl text-center text-white">
+                        <p class="text-4xl font-bold mb-2">500+</p>
+                        <p class="text-sm font-medium opacity-80 uppercase">Кейсов</p>
+                    </div>
+                    <div class="bg-slate-900 p-8 rounded-3xl text-center text-white col-span-2">
+                        <p class="text-2xl font-semibold mb-2">Эксперт в фитнес-бизнесе</p>
+                        <p class="text-sm font-medium opacity-70 uppercase">и онлайн-торговле</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16">
+            <h2 class="text-4xl font-bold mb-4">Направления деятельности</h2>
+            <div class="h-1 w-20 bg-blue-600 mx-auto rounded-full"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="service-card bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition">
+                <div class="w-12 h-12 bg-blue-50 text-blue-600 flex items-center justify-center rounded-xl mb-6">
+                    <i class="fas fa-comments text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Консультации</h3>
+                <p class="text-slate-600 text-sm leading-relaxed">Профессиональные устные и письменные юридические консультации по любым правовым вопросам.</p>
+            </div>
+
+            <div class="service-card bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition">
+                <div class="w-12 h-12 bg-blue-50 text-blue-600 flex items-center justify-center rounded-xl mb-6">
+                    <i class="fas fa-briefcase text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Регистрация бизнеса</h3>
+                <p class="text-slate-600 text-sm leading-relaxed">Помощь в открытии ИП и ООО в РБ. Выбор оптимальной организационно-правовой формы.</p>
+            </div>
+
+            <div class="service-card bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition">
+                <div class="w-12 h-12 bg-blue-50 text-blue-600 flex items-center justify-center rounded-xl mb-6">
+                    <i class="fas fa-calculator text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Налоги и законы</h3>
+                <p class="text-slate-600 text-sm leading-relaxed">Разъяснение налогового законодательства и механизмов его применения в вашем бизнесе.</p>
+            </div>
+
+            <div class="service-card bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition">
+                <div class="w-12 h-12 bg-blue-50 text-blue-600 flex items-center justify-center rounded-xl mb-6">
+                    <i class="fas fa-file-contract text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Разработка документов</h3>
+                <p class="text-slate-600 text-sm leading-relaxed">Учредительные документы, договоры с контрагентами, локальные нормативные акты и ПД.</p>
+            </div>
+
+            <div class="service-card bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition">
+                <div class="w-12 h-12 bg-blue-50 text-blue-600 flex items-center justify-center rounded-xl mb-6">
+                    <i class="fas fa-gavel text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Судебные споры</h3>
+                <p class="text-slate-600 text-sm leading-relaxed">Представительство и защита интересов в суде, досудебное урегулирование конфликтов.</p>
+            </div>
+
+            <div class="service-card bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition">
+                <div class="w-12 h-12 bg-blue-50 text-blue-600 flex items-center justify-center rounded-xl mb-6">
+                    <i class="fas fa-chalkboard-teacher text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Образование</h3>
+                <p class="text-slate-600 text-sm leading-relaxed">Мастер-классы и лекции по направлениям: фитнес, онлайн-торговля, защита персональных данных.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="useful" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-4xl font-bold mb-4">Полезная информация</h2>
+                    <p class="text-slate-600 max-w-lg">Актуальные советы для предпринимателей и ответы на частые юридические вопросы в Республике Беларусь.</p>
+                </div>
+                <div class="mt-6 md:mt-0 flex items-center space-x-6">
+                    <a href="https://www.instagram.com/mari_povorotnay/" target="_blank" class="text-blue-600 font-semibold hover:underline flex items-center">
+                        Больше в Instagram <i class="fab fa-instagram ml-2"></i>
+                    </a>
+                    <div class="flex items-center space-x-4">
+                        <button onclick="prevSlide()" class="w-12 h-12 rounded-full border-2 border-slate-200 text-slate-400 flex items-center justify-center hover:border-blue-600 hover:text-blue-600 transition">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button onclick="nextSlide()" class="w-12 h-12 rounded-full border-2 border-slate-200 text-slate-400 flex items-center justify-center hover:border-blue-600 hover:text-blue-600 transition">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slider-container">
+                <div class="slider-track" id="sliderTrack">
+                    </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="infoModal" onclick="closeModal()">
+        <div class="modal-body shadow-2xl" onclick="event.stopPropagation()">
+            <div class="p-8 border-b border-slate-100 flex justify-between items-center">
+                <h3 id="modalTitle" class="text-2xl font-bold text-slate-900"></h3>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-slate-900 text-2xl">&times;</button>
+            </div>
+            <div id="modalContent" class="p-8 text-slate-600 leading-relaxed space-y-4">
+                </div>
+            <div class="p-8 bg-slate-50 rounded-b-3xl">
+                <a href="#booking" onclick="closeModal()" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition">Получить консультацию по теме</a>
+            </div>
+        </div>
+    </div>
+
+    <section id="booking" class="py-24 bg-slate-900 text-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-blue-600 opacity-10 blur-3xl pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-16">
+                <div class="bg-white/5 p-8 rounded-3xl backdrop-blur-sm border border-white/10" id="booking-container">
+                    <h2 class="text-3xl font-bold mb-6">Онлайн-запись</h2>
+                    <form onsubmit="handleFormSubmit(event, 'ЗАПИСЬ НА КОНСУЛЬТАЦИЮ')" class="space-y-4">
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-1">Ваше имя</label>
+                            <input type="text" name="user_name" required class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 text-white">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-1">Телефон для связи</label>
+                            <input type="tel" name="user_phone" required class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 text-white" placeholder="+375 (__) ___-__-__">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-1">Удобная дата</label>
+                            <input type="date" name="booking_date" required class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 text-white">
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-xl font-bold transition">Записаться на консультацию</button>
+                    </form>
+                </div>
+
+                <div class="bg-white/5 p-8 rounded-3xl backdrop-blur-sm border border-white/10" id="ask">
+                    <h2 class="text-3xl font-bold mb-6">Задать вопрос онлайн</h2>
+                    <form onsubmit="handleFormSubmit(event, 'ВОПРОС С САЙТА')" class="space-y-4">
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-1">Ваше имя и номер телефона</label>
+                            <input type="text" name="user_name" required class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 text-white">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-1">Ваш вопрос</label>
+                            <textarea name="user_message" rows="5" required class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 text-white" placeholder="Опишите вкратце вашу ситуацию..."></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-1">Прикрепить файл (документы, фото)</label>
+                            <input type="file" name="user_file" class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 text-white text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700">
+                        </div>
+                        <button type="submit" class="w-full bg-white text-slate-900 hover:bg-slate-200 py-4 rounded-xl font-bold transition">Отправить вопрос</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="py-20 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-12">
+                <div class="col-span-2">
+                    <span class="text-2xl font-bold text-slate-900">ИП Поворотная Марина</span>
+                    <p class="text-slate-500 mt-4 max-w-sm">Юридическое сопровождение бизнеса и граждан, экспертные консультации и образовательные программы в Республике Беларусь.</p>
+                    <div class="mt-8 flex space-x-6">
+                        <a href="https://www.instagram.com/mari_povorotnay/" target="_blank" class="text-slate-400 hover:text-pink-600 text-6xl transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://t.me/mari_povorotnay" target="_blank" class="text-slate-400 hover:text-blue-500 text-6xl transition">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-6 uppercase text-xs tracking-widest text-slate-400">Контакты</h4>
+                    <ul class="space-y-4 text-slate-600">
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-3 text-blue-600"></i>
+                            <span>+375 (29) 167-04-12</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-blue-600"></i>
+                            <span>uristhelp365@yandex.by</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-map-marker-alt mr-3 text-blue-600"></i>
+                            <span>г. Минск, Республика Беларусь</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-6 uppercase text-xs tracking-widest text-slate-400">Навигация</h4>
+                    <ul class="space-y-4 text-slate-600">
+                        <li><a href="#about" class="hover:text-blue-600 transition">Обо мне</a></li>
+                        <li><a href="#services" class="hover:text-blue-600 transition">Услуги</a></li>
+                        <li><a href="#useful" class="hover:text-blue-600 transition">Полезная информация</a></li>
+                        <li><a href="#booking" class="hover:text-blue-600 transition">Запись</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-20 pt-8 border-t border-slate-200 text-center text-sm text-slate-400">
+                <p>&copy; 2026 ИП Поворотная Марина. УНП 193176812. Все права защищены. Сайт работает в тестовом режиме.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="statusMessage" class="status-message bg-green-500 text-white shadow-2xl">
+        Ваша заявка успешно отправлена!
+    </div>
+
+    <script>
+        // --- НАСТРОЙКИ TELEGRAM ---
+        const TELEGRAM_BOT_TOKEN = '8616539421:AAGiD8VzYWKlYwhiU4cIqY8ZEq1-hYz8W2E';
+        const TELEGRAM_CHAT_ID = '484133546';
+
+        // --- ДАННЫЕ СТАТЕЙ (ИЗ INDEX TWO) ---
+        const articles = [
+            {
+                title: "Мастер-класс на тему Персональные данные",
+                preview: "Юридическая лекция в Минске по особенностям работы с персональными данными в Республике Беларусь в 2026 году...",
+                image: "PD.png",
+                content: "Записаться на лекцию по работе с персональными данными можно <a href='https://www.instagram.com/p/DXjITorCtDG/?igsh=MWRmM2thdXFxaGtjbw==' target='_blank' class='text-blue-600 font-bold underline'>в Инстаграм</a>."
+            },            
+            {
+                title: "Как открыть ИП в Беларуси?",
+                preview: "Пошаговая инструкция по регистрации: от выбора кодов ОКЭД до первой налоговой декларации...",
+                image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=600",
+                content: "<strong>1. Место регистрации:</strong> По месту жительства (прописки).<br><strong>2. Документы:</strong> Заявление, паспорт, фото 3х4 и квитанция об оплате госпошлины (0.5 базовой величины).<br><strong>3. Процедура:</strong> В день подачи документов вы получаете свидетельство о регистрации.<br><strong>4. После регистрации:</strong> Необходимо встать на учет в ИМНС, ФСЗН и при необходимости открыть расчетный счет.<br><br>Регистрация ИП в Беларуси требует соблюдения определенных правил.<br><strong> Правила:</strong><br>1. Сначала выберите код деятельности по ОКЭД.<br>2. Подайте заявление в исполком по месту жительства или через портал ЕГР.<br>3. Уплатите госпошлину (кроме регистрации онлайн).<br><br>Важно: с 2024 года расширен список видов деятельности, которыми могут заниматься ИП. Обязательно проверьте, входит ли ваше направление в разрешенный перечень."
+            },
+            {
+                title: "Налоговые режимы в РБ",
+                preview: "Разбираем отличия УСН, единого налога и подоходного налога. Что выгоднее именно вам?",
+                image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=600",
+                content: "На текущий момент основными режимами для малого бизнеса являются:<br><br>• <b>Подоходный налог (20%):</b> Основная система для ИП. Позволяет учитывать профессиональные вычеты.<br>• <b>Единый налог:</b> Для определенных видов деятельности (торговля, услуги населению).<br>• <b>Налог на профессиональный доход (НПД):</b> Для самозанятых (10% или 20%).<br><br>Выбор зависит от объема выручки и ваших расходов."
+            },
+            {
+                title: "Защита персональных данных",
+                preview: "Как правильно оформить политику конфиденциальности и согласия, чтобы избежать штрафов.",
+                image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=600",
+                content: "Закон Республики Беларусь «О защите персональных данных» обязателен для всех, кто собирает контакты клиентов через сайт. <br><br>Вам необходимо: <br>1. Разместить Политику конфиденциальности.<br>2. Получить явное согласие пользователя на обработку данных.<br>3. Назначить ответственного за защиту данных. <br><br>Штрафы за несоблюдение могут достигать существенных размеров."
+            },
+            {
+                title: "Договор публичной оферты",
+                preview: "Зачем он нужен вашему сайту и какие условия обязательно нужно прописать в 2026 году.",
+                image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=600",
+                content: "Оферта — это предложение заключить договор на определенных условиях. <br><br>Для интернет-магазина или инфобизнеса это критически важный документ. В нем должны быть четко прописаны: <br>• Порядок оплаты и возврата средств. <br>• Сроки оказания услуг. <br>• Ответственность сторон. <br>Правильно составленная оферта защитит вас в суде и снизит количество необоснованных претензий."
+            },
+            {
+                title: "Трудовые отношения",
+                preview: "Как правильно оформлять сотрудников и минимизировать риски при увольнении.",
+                image: "TO.png",
+                content: "Трудовой кодекс РБ строго регламентирует права работников. При найме персонала важно правильно составить Контракт или Договор подряда. <br><br>Совет: всегда прописывайте должностную инструкцию максимально детально. Это поможет в будущем обосновать дисциплинарное взыскание или законное увольнение при невыполнении обязанностей."
+            },
+            {
+                title: "Интеллектуальная собственность",
+                preview: "Регистрация товарного знака и защита авторского права в Республике Беларусь.",
+                image: "https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&q=80&w=600",
+                content: "Ваш бренд — это ваш актив. Регистрация товарного знака в Национальном центре интеллектуальной собственности (НЦИС) дает исключительное право на его использование. <br><br>Помните, что использование чужих фото или текстов на сайте без разрешения правообладателя влечет ответственность. Всегда оформляйте передачу авторских прав с дизайнерами и копирайтерами."
+            }
+        ];
+
+        // ФУНКЦИЯ ОТРИСОВКИ СТАТЕЙ (ИЗ INDEX TWO)
+        function renderArticles() {
+            const track = document.getElementById('sliderTrack');
+            track.innerHTML = articles.map((article, index) => `
+                <div class="slider-item">
+                    <article class="group cursor-pointer" onclick="openModal(${index})">
+                        <div class="overflow-hidden rounded-2xl mb-4 h-64 bg-slate-100">
+                            <img src="${article.image}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-blue-600 transition">${article.title}</h3>
+                        <p class="text-slate-500 text-sm mb-4">${article.preview}</p>
+                        <span class="text-blue-600 font-medium text-sm">Читать подробнее <i class="fas fa-arrow-right ml-1"></i></span>
+                    </article>
+                </div>
+            `).join('');
+        }
+
+        // Инициализация при загрузке
+        renderArticles();
+
+        // ФУНКЦИОНАЛ МОДАЛЬНОГО ОКНА
+        function openModal(index) {
+            const modal = document.getElementById('infoModal');
+            document.getElementById('modalTitle').innerText = articles[index].title;
+            document.getElementById('modalContent').innerHTML = articles[index].content;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('infoModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // ФУНКЦИОНАЛ СЛАЙДЕРА
+        let currentIdx = 0;
+        const track = document.getElementById('sliderTrack');
+
+        function updateSlider() {
+            let itemsVisible = 1;
+            if (window.innerWidth >= 1024) itemsVisible = 3;
+            else if (window.innerWidth >= 768) itemsVisible = 2;
+
+            const movePercentage = 100 / itemsVisible;
+            track.style.transform = `translateX(-${currentIdx * movePercentage}%)`;
+        }
+
+        function nextSlide() {
+            currentIdx++;
+            if (currentIdx > articles.length - 1) {
+                currentIdx = 0;
+            }
+            updateSlider();
+        }
+
+        function prevSlide() {
+            currentIdx--;
+            if (currentIdx < 0) {
+                currentIdx = articles.length - 1;
+            }
+            updateSlider();
+        }
+
+        window.addEventListener('resize', updateSlider);
+
+        // --- ЛИСТАНИЕ ПАЛЬЦЕМ (SWIPE) ---
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const sliderContainer = document.querySelector('.slider-container');
+
+        sliderContainer.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        sliderContainer.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const swipeThreshold = 50; 
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) nextSlide(); else prevSlide();
+            }
+        }
+
+        // ОБРАБОТКА ФОРМ И ОТПРАВКА В TELEGRAM (ИЗ INDEX ONE)
+        async function handleFormSubmit(event, type) {
+            event.preventDefault();
+            const form = event.target;
+            const submitBtn = form.querySelector('button');
+            const originalBtnText = submitBtn.innerText;
+
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Отправка...';
+
+            const formData = new FormData(form);
+            let text = `<b>${type}</b>\n\n`;
+            
+            if(formData.has('user_name')) text += `👤 Имя: ${formData.get('user_name')}\n`;
+            if(formData.has('user_phone')) text += `📞 Тел: ${formData.get('user_phone')}\n`;
+            if(formData.has('booking_date')) text += `📅 Дата: ${formData.get('booking_date')}\n`;
+            if(formData.has('user_message')) text += `❓ Вопрос: ${formData.get('user_message')}\n`;
+
+            const file = formData.get('user_file');
+
+            try {
+                let response;
+                if (file && file.size > 0) {
+                    const tgFormData = new FormData();
+                    tgFormData.append('chat_id', TELEGRAM_CHAT_ID);
+                    tgFormData.append('document', file);
+                    tgFormData.append('caption', text);
+                    tgFormData.append('parse_mode', 'HTML');
+                    response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument`, {
+                        method: 'POST',
+                        body: tgFormData
+                    });
+                } else {
+                    response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            chat_id: TELEGRAM_CHAT_ID,
+                            text: text,
+                            parse_mode: 'HTML'
+                        })
+                    });
+                }
+
+                if (response.ok) {
+                    const msg = document.getElementById('statusMessage');
+                    msg.innerText = 'Ваша заявка успешно отправлена!';
+                    msg.style.display = 'block';
+                    form.reset();
+                    setTimeout(() => msg.style.display = 'none', 5000);
+                } else {
+                    throw new Error('Ошибка при отправке');
+                }
+            } catch (error) {
+                alert('Произошла ошибка при отправке. Пожалуйста, попробуйте позже.');
+                console.error(error);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = originalBtnText;
+            }
+        }
+
+        // Параллакс-эффект
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const heroImg = document.querySelector('.hero-gradient img');
+            if (heroImg) {
+                heroImg.style.transform = 'translateY(' + scrolled * 0.05 + 'px)';
+            }
+        });
+    </script>
+</body>
+</html>
