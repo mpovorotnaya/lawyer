@@ -127,7 +127,7 @@
                     <div class="aspect-square rounded-3xl overflow-hidden shadow-2xl bg-slate-200">
                         <img src="photo.JPG" 
                              alt="Марина Поворотная" 
-                             class="w-full h-[150%] object-cover grayscale-[20%] hover:grayscale-0 transition duration-700"
+                             class="w-full h-[120%] object-cover -translate-y-10 grayscale-[20%] hover:grayscale-0 transition duration-700"
                              onerror="this.onerror=null; this.src='https://via.placeholder.com/800';">
                     </div>
                     <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl hidden lg:block">
@@ -596,7 +596,8 @@
             const scrolled = window.pageYOffset;
             const heroImg = document.querySelector('.hero-gradient img');
             if (heroImg) {
-                heroImg.style.transform = 'scale(1) translateY(' + scrolled * 0.05 + 'px)';
+                // Если в CSS был сдвиг -40px (примерно -translate-y-10)
+                heroImg.style.transform = `translateY(${-40 + (scrolled * 0.05)}px)`;
             }
         });
     </script>
